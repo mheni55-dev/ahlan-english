@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-navy: #0B1E3D;
+  --color-navy-light: #1a3a5c;
+  --color-navy-dark: #061225;
+  --color-gold: #D9A441;
+  --color-gold-light: #e6b96a;
+  --color-gold-dark: #b8872e;
+  --color-background: #ffffff;
+  --color-foreground: #0B1E3D;
+  --color-muted: #6b7280;
+  --color-border: #e5e7eb;
+  --font-sans: "Inter", "Noto Sans Arabic", system-ui, sans-serif;
+}
+
+.dark {
+  --color-background: #0a0f1a;
+  --color-foreground: #f0f0f0;
+  --color-muted: #9ca3af;
+  --color-border: #1f2937;
+}
+
+html[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="ltr"] {
+  direction: ltr;
+  text-align: left;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-gold) transparent;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px var(--color-background) inset;
+  -webkit-text-fill-color: var(--color-foreground);
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.gradient-navy {
+  background: linear-gradient(135deg, #0B1E3D 0%, #1a3a5c 100%);
+}
+
+.gradient-gold {
+  background: linear-gradient(135deg, #D9A441 0%, #e6b96a 100%);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #0B1E3D 0%, #D9A441 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
