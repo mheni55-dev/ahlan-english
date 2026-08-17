@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { mapKeys } from "@/lib/mapKeys";
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -17,14 +18,14 @@ export default async function TestimonialsPage() {
 
   const { data: testimonialsRaw } = await supabase
     .from("testimonials")
-    .select("*, user:users(name), course:courses(titleAr)")
+    .select("*, user:users(name), course:courses(title_ar)")
     .eq("approved", true)
     .order("created_at", { ascending: false });
 
   const testimonials = (testimonialsRaw || []).map((t) => ({
-    ...t,
-    user: Array.isArray(t.user) ? t.user[0] : t.user,
-    course: Array.isArray(t.course) ? t.course[0] : t.course,
+    ...mapKeys(t as Record<string, unknown>),
+    user: Array.isArray(t.user) ? mapKeys(t.user[0] as Record<string, unknown>) : t.user ? mapKeys(t.user as Record<string, unknown>) : null,
+    course: Array.isArray(t.course) ? mapKeys(t.course[0] as Record<string, unknown>) : t.course ? mapKeys(t.course as Record<string, unknown>) : null,
   }));
 
   return (

@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
 
     let query = supabase
       .from("testimonials")
-      .select("*, users(id, name), courses(id, title_ar)")
+      .select("*, users(id, name, email), courses(id, title_ar)")
       .order("created_at", { ascending: false });
 
     if (!showAll) {
@@ -27,7 +27,19 @@ export async function GET(req: NextRequest) {
 
     if (error) throw error;
 
-    return NextResponse.json(testimonials);
+    const mapped = (testimonials || []).map((t) => ({
+      id: t.id,
+      userId: t.user_id,
+      courseId: t.course_id,
+      rating: t.rating,
+      comment: t.comment,
+      approved: t.approved,
+      createdAt: t.created_at,
+      user: t.users ? { id: (t.users as Record<string, unknown>).id, name: (t.users as Record<string, unknown>).name, email: (t.users as Record<string, unknown>).email } : null,
+      course: t.courses ? { id: (t.courses as Record<string, unknown>).id, titleAr: (t.courses as Record<string, unknown>).title_ar } : null,
+    }));
+
+    return NextResponse.json(mapped);
   } catch {
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }

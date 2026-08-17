@@ -13,6 +13,7 @@ type Course = {
   level: string;
   duration: string;
   thumbnail: string | null;
+  promoVideo: string | null;
 };
 
 export default function FeaturedCourses({ courses }: { courses: Course[] }) {

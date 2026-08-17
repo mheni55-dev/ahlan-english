@@ -18,7 +18,26 @@ export async function GET() {
 
     if (error) throw error;
 
-    return NextResponse.json(enrollments);
+    const mapped = (enrollments || []).map((e) => ({
+      id: e.id,
+      userId: e.user_id,
+      courseId: e.course_id,
+      paymentStatus: e.payment_status,
+      paymentProof: e.payment_proof,
+      enrolledAt: e.enrolled_at,
+      updatedAt: e.updated_at,
+      course: e.courses ? {
+        id: (e.courses as Record<string, unknown>).id,
+        titleAr: (e.courses as Record<string, unknown>).title_ar,
+        title: (e.courses as Record<string, unknown>).title,
+        level: (e.courses as Record<string, unknown>).level,
+        duration: (e.courses as Record<string, unknown>).duration,
+        thumbnail: (e.courses as Record<string, unknown>).thumbnail,
+        zoomLink: (e.courses as Record<string, unknown>).zoom_link,
+      } : null,
+    }));
+
+    return NextResponse.json(mapped);
   } catch {
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }

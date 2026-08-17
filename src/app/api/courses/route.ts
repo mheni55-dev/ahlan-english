@@ -24,7 +24,22 @@ export async function GET() {
 
     const coursesWithCount =
       courses?.map((c) => ({
-        ...c,
+        id: c.id,
+        title: c.title,
+        titleAr: c.title_ar,
+        description: c.description,
+        descriptionAr: c.description_ar,
+        descriptionArShort: c.description_ar,
+        price: c.price,
+        level: c.level,
+        duration: c.duration,
+        thumbnail: c.thumbnail,
+        promoVideo: c.promo_video,
+        zoomLink: c.zoom_link,
+        featured: c.featured,
+        visible: c.visible,
+        createdAt: c.created_at,
+        updatedAt: c.updated_at,
         _count: { enrollments: countMap.get(c.id) || 0 },
       })) || [];
 

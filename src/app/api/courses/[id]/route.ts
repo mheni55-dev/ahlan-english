@@ -34,8 +34,31 @@ export async function GET(
       .eq("course_id", id);
 
     const courseWithContents = {
-      ...course,
-      contents: contents || [],
+      id: course.id,
+      title: course.title,
+      titleAr: course.title_ar,
+      description: course.description,
+      descriptionAr: course.description_ar,
+      price: course.price,
+      level: course.level,
+      duration: course.duration,
+      thumbnail: course.thumbnail,
+      promoVideo: course.promo_video,
+      zoomLink: course.zoom_link,
+      featured: course.featured,
+      visible: course.visible,
+      createdAt: course.created_at,
+      updatedAt: course.updated_at,
+      contents: (contents || []).map((c) => ({
+        id: c.id,
+        courseId: c.course_id,
+        title: c.title,
+        titleAr: c.title_ar,
+        type: c.type,
+        url: c.url,
+        order: c.order,
+        createdAt: c.created_at,
+      })),
       _count: { enrollments: enrollmentCount || 0 },
     };
 
