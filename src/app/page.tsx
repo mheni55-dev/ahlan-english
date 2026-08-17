@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { mapKeys } from "@/lib/mapKeys";
 import Hero from "@/components/home/Hero";
 import About from "@/components/home/About";
 import FeaturedCourses from "@/components/home/FeaturedCourses";
@@ -17,7 +16,17 @@ export default async function HomePage() {
     .order("created_at", { ascending: false })
     .limit(3);
 
-  const featuredCourses = (featuredCoursesRaw || []).map((c) => mapKeys(c as Record<string, unknown>));
+  const featuredCourses = (featuredCoursesRaw || []).map((c) => ({
+    id: c.id,
+    title: c.title,
+    titleAr: c.title_ar,
+    descriptionAr: c.description_ar,
+    price: c.price,
+    level: c.level,
+    duration: c.duration,
+    thumbnail: c.thumbnail,
+    promoVideo: c.promo_video,
+  }));
 
   const { data: testimonialsRaw } = await supabase
     .from("testimonials")
@@ -26,11 +35,17 @@ export default async function HomePage() {
     .order("created_at", { ascending: false })
     .limit(4);
 
-  const testimonials = (testimonialsRaw || []).map((t) => ({
-    ...mapKeys(t as Record<string, unknown>),
-    user: Array.isArray(t.user) ? mapKeys(t.user[0] as Record<string, unknown>) : mapKeys(t.user as Record<string, unknown>),
-    course: Array.isArray(t.course) ? mapKeys(t.course[0] as Record<string, unknown>) : t.course ? mapKeys(t.course as Record<string, unknown>) : null,
-  }));
+  const testimonials = (testimonialsRaw || []).map((t) => {
+    const user = Array.isArray(t.user) ? t.user[0] : t.user;
+    const course = Array.isArray(t.course) ? t.course[0] : t.course;
+    return {
+      id: t.id,
+      rating: t.rating,
+      comment: t.comment,
+      user: user ? { name: user.name, image: user.image } : null,
+      course: course ? { titleAr: course.title_ar } : null,
+    };
+  });
 
   return (
     <div>
