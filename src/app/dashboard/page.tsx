@@ -99,7 +99,7 @@ export default async function DashboardPage() {
 
             return (
               <div key={enrollment.id} className="group bg-white dark:bg-navy/50 rounded-2xl overflow-hidden border border-border hover:shadow-lg hover:border-gold/20 transition-all duration-300">
-                <div className="h-36 bg-gradient-to-br from-navy to-navy/80 relative overflow-hidden">
+                <div className="aspect-[3/4] bg-gradient-to-br from-navy to-navy/80 relative overflow-hidden">
                   {course?.thumbnail ? (
                     <img src={course.thumbnail} alt={course.title_ar} className="w-full h-full object-cover" />
                   ) : (

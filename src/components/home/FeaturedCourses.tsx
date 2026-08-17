@@ -40,7 +40,7 @@ export default function FeaturedCourses({ courses }: { courses: Course[] }) {
               key={course.id}
               className="group bg-white dark:bg-navy/50 rounded-3xl overflow-hidden border border-border hover:shadow-xl hover:shadow-gold/5 hover:border-gold/20 transition-all duration-300"
             >
-              <div className="h-48 bg-gradient-to-br from-navy to-navy-light relative overflow-hidden">
+              <div className="aspect-[3/4] bg-gradient-to-br from-navy to-navy-light relative overflow-hidden">
                 {course.thumbnail ? (
                   <img src={course.thumbnail} alt={course.titleAr} className="w-full h-full object-cover" />
                 ) : (
