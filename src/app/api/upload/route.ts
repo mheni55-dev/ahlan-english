@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getUser } from "@/lib/auth";
-import { writeFile, mkdir } from "fs/promises";
-import { join, extname } from "path";
+import { createClient } from "@/lib/supabase/server";
+import { extname } from "path";
 import { v4 as uuidv4 } from "uuid";
 
 const ALLOWED_FOLDERS = ["uploads/courses", "uploads/proofs", "uploads/misc"];
@@ -36,19 +36,29 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "File type not allowed" }, { status: 400 });
     }
 
+    const supabase = await createClient();
+
+    const filename = `${folder}/${uuidv4()}${ext}`;
+
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    const filename = `${uuidv4()}${ext}`;
-    const uploadDir = join(process.cwd(), "public", folder);
+    const { error: uploadError } = await supabase.storage
+      .from("uploads")
+      .upload(filename, buffer, {
+        contentType: file.type,
+        upsert: false,
+      });
 
-    await mkdir(uploadDir, { recursive: true });
-    const filepath = join(uploadDir, filename);
-    await writeFile(filepath, buffer);
+    if (uploadError) {
+      return NextResponse.json({ error: "Upload failed", details: uploadError.message }, { status: 500 });
+    }
 
-    const url = `/${folder}/${filename}`;
+    const { data: urlData } = supabase.storage
+      .from("uploads")
+      .getPublicUrl(filename);
 
-    return NextResponse.json({ url, filename }, { status: 201 });
+    return NextResponse.json({ url: urlData.publicUrl, filename }, { status: 201 });
   } catch {
     return NextResponse.json({ error: "Upload failed" }, { status: 500 });
   }
