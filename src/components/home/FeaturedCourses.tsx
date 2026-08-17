@@ -27,7 +27,7 @@ export default function FeaturedCourses({ courses }: { courses: Course[] }) {
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-1.5 rounded-full bg-gold/10 text-gold text-sm font-bold mb-4">دوراتنا</span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-navy dark:text-white mb-4">
-            الدورات <span className="text-gold">المميزة</span>
+            دوراتنا <span className="text-gold">التعليمية</span>
           </h2>
           <p className="text-muted max-w-2xl mx-auto text-lg">
             اختر من بين دوراتنا المتنوعة المصممة بعناية لتلبية احتياجاتك التعليمية

@@ -8,15 +8,13 @@ import TestimonialsPreview from "@/components/home/TestimonialsPreview";
 export default async function HomePage() {
   const supabase = await createClient();
 
-  const { data: featuredCoursesRaw } = await supabase
+  const { data: coursesRaw } = await supabase
     .from("courses")
     .select("*")
-    .eq("featured", true)
     .eq("visible", true)
-    .order("created_at", { ascending: false })
-    .limit(3);
+    .order("created_at", { ascending: false });
 
-  const featuredCourses = (featuredCoursesRaw || []).map((c) => ({
+  const courses = (coursesRaw || []).map((c) => ({
     id: c.id,
     title: c.title,
     titleAr: c.title_ar,
@@ -51,7 +49,7 @@ export default async function HomePage() {
     <div>
       <Hero />
       <About />
-      <FeaturedCourses courses={featuredCourses || []} />
+      <FeaturedCourses courses={courses} />
       <TestimonialsPreview testimonials={testimonials} />
     </div>
   );
