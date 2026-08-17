@@ -4,7 +4,7 @@ type Testimonial = {
   id: string;
   rating: number;
   comment: string;
-  user: { name: string; image: string | null };
+  user: { name: string; image: string | null } | null;
   course: { titleAr: string } | null;
 };
 
@@ -51,10 +51,10 @@ export default function TestimonialsPreview({ testimonials }: { testimonials: Te
               <p className="text-sm text-muted mt-4 mb-6 leading-relaxed line-clamp-4">{t.comment}</p>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-navy dark:bg-white/10 flex items-center justify-center text-white font-bold text-sm">
-                  {t.user.name.charAt(0)}
+                  {t.user?.name?.charAt(0)}
                 </div>
                 <div>
-                  <div className="text-sm font-bold text-navy dark:text-white">{t.user.name}</div>
+                  <div className="text-sm font-bold text-navy dark:text-white">{t.user?.name}</div>
                   {t.course && <div className="text-xs text-muted">{t.course.titleAr}</div>}
                 </div>
               </div>
