@@ -39,8 +39,7 @@ export default function LoginPage() {
     if (authError) {
       setError("البريد الإلكتروني أو كلمة المرور غير صحيحة");
     } else {
-      router.push("/");
-      router.refresh();
+      window.location.href = "/";
     }
   }
 
