@@ -24,11 +24,6 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
       </head>
       <body className="min-h-screen flex flex-col">
-        <svg style={{ position: 'absolute', width: 0, height: 0 }}>
-          <filter id="remove-white">
-            <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -10" />
-          </filter>
-        </svg>
         <ThemeProvider>
           <LanguageProvider>
             <AuthProvider>
