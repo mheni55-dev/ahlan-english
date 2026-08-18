@@ -20,11 +20,9 @@ export default function Hero() {
 
         {/* Main Headline */}
         <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight mb-6">
-          <span className="text-navy dark:text-white">{t(lang, "hero.title1")}</span>
+          <span className="text-navy dark:text-white">AHLAN English</span>
           <br />
-          <span className="text-gold">{t(lang, "hero.title2")}</span>
-          <br />
-          <span className="text-navy dark:text-white">{t(lang, "hero.title3")}</span>
+          <span className="text-gold">Academy</span>
         </h1>
 
         {/* Subtitle */}
