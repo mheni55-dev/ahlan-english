@@ -76,7 +76,7 @@ export default function FeaturedCourses({ courses }: { courses: Course[] }) {
                     <span className="font-extrabold text-gold text-lg">{formatPrice(course.price, currency)}</span>
                   </div>
                   <Link
-                    href="/courses"
+                    href="/auth/register"
                     className="block w-full text-center py-3 rounded-full bg-navy dark:bg-white/10 text-white font-bold text-sm hover:bg-gold hover:text-navy transition-all duration-200"
                   >
                     {t(lang, "courses.enroll")}
