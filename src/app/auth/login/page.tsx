@@ -4,9 +4,12 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
+import { useLanguage } from "@/hooks/useLanguage";
+import { t } from "@/lib/translations";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { lang } = useLanguage();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -37,7 +40,7 @@ export default function LoginPage() {
     setLoading(false);
 
     if (authError) {
-      setError("البريد الإلكتروني أو كلمة المرور غير صحيحة");
+      setError(t(lang, "auth.loginError"));
     } else {
       window.location.href = "/";
     }
@@ -46,29 +49,25 @@ export default function LoginPage() {
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-lg border border-border p-8">
-        {/* Logo */}
         <div className="flex flex-col items-center mb-8">
-          <img src="/logo.png" alt="أهلا إنجلش" className="w-28 h-28 rounded-full object-cover mb-4" />
+          <img src="/logo.png" alt="Ahlan English" className="w-28 h-28 rounded-full object-cover mb-4" />
           <h2 className="text-3xl font-bold text-navy">أهلا إنجلش</h2>
         </div>
 
-        {/* Title */}
         <h1 className="text-2xl font-bold text-navy text-center mb-6">
-          تسجيل الدخول
+          {t(lang, "auth.loginTitle")}
         </h1>
 
-        {/* Error */}
         {error && (
           <div className="mb-4 p-3 rounded-2xl bg-red-50 border border-red-200 text-red-700 text-sm text-center">
             {error}
           </div>
         )}
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="email"
-            placeholder="البريد الإلكتروني"
+            placeholder={t(lang, "auth.email")}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -76,7 +75,7 @@ export default function LoginPage() {
           />
           <input
             type="password"
-            placeholder="كلمة المرور"
+            placeholder={t(lang, "auth.password")}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -87,18 +86,17 @@ export default function LoginPage() {
             disabled={loading}
             className="w-full py-3 rounded-full bg-gold text-navy font-bold text-lg hover:bg-gold-light transition-colors disabled:opacity-50"
           >
-            {loading ? "جاري الدخول..." : "دخول"}
+            {loading ? t(lang, "auth.loggingIn") : t(lang, "auth.loginBtn")}
           </button>
         </form>
 
-        {/* Register Link */}
         <p className="text-center mt-6 text-muted">
-          ليس لديك حساب؟{" "}
+          {t(lang, "auth.noAccount")}{" "}
           <Link
             href="/auth/register"
             className="text-gold font-bold hover:text-gold-light transition-colors"
           >
-            سجّلي الآن
+            {t(lang, "auth.registerNow")}
           </Link>
         </p>
       </div>

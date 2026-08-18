@@ -4,14 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useUser, useSignOut } from "@/hooks/useUser";
+import { useLanguage } from "@/hooks/useLanguage";
+import { t } from "@/lib/translations";
 import { useState, useEffect, useRef } from "react";
-
-const navLinks = [
-  { href: "/", label: "الرئيسية" },
-  { href: "/courses", label: "دوراتنا التعليمية" },
-  { href: "/testimonials", label: "آراء الطلاب" },
-  { href: "/contact", label: "التواصل" },
-];
 
 const currencies = [
   { code: "DZD", symbol: "دج", name: "الدينار الجزائري", flag: "🇩🇿" },
@@ -31,12 +26,20 @@ export default function Navbar() {
   const { theme, setTheme } = useTheme();
   const { user: session } = useUser();
   const signOut = useSignOut();
+  const { lang, setLang } = useLanguage();
   const [mounted, setMounted] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [currencyOpen, setCurrencyOpen] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0]);
   const currencyDesktopRef = useRef<HTMLDivElement>(null);
   const currencyMobileRef = useRef<HTMLDivElement>(null);
+
+  const navLinks = [
+    { href: "/", label: t(lang, "nav.home") },
+    { href: "/courses", label: t(lang, "nav.courses") },
+    { href: "/testimonials", label: t(lang, "nav.testimonials") },
+    { href: "/contact", label: t(lang, "nav.contact") },
+  ];
 
   useEffect(() => {
     setMounted(true);
@@ -73,9 +76,9 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 bg-white/90 dark:bg-navy-dark/90 backdrop-blur-md border-b border-border">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo - Far Right (RTL) */}
+          {/* Logo */}
           <Link href="/" className="flex items-center gap-2 shrink-0">
-            <img src="/logo.png" alt="أهلا إنجلش" className="w-14 h-14 rounded-full object-cover" />
+            <img src="/logo.png" alt="Ahlan English" className="w-14 h-14 rounded-full object-cover" />
             <span className="text-xs font-bold text-navy dark:text-white leading-tight">أهلا إنجلش</span>
           </Link>
 
@@ -100,10 +103,11 @@ export default function Navbar() {
           <div className="flex items-center gap-2">
             {/* Language Toggle */}
             <button
+              onClick={() => setLang(lang === "ar" ? "en" : "ar")}
               className="w-9 h-9 rounded-full bg-navy dark:bg-white/10 flex items-center justify-center text-white text-xs font-bold hover:scale-105 transition-transform"
-              title="اللغة"
+              title={lang === "ar" ? "Switch to English" : "التبديل إلى العربية"}
             >
-              EN
+              {lang === "ar" ? "EN" : "عربي"}
             </button>
 
             {/* Currency Selector */}
@@ -156,7 +160,6 @@ export default function Navbar() {
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 className="w-9 h-9 rounded-full bg-navy dark:bg-white/10 flex items-center justify-center text-white hover:scale-105 transition-transform"
-                title="الوضع الداكن"
               >
                 {theme === "dark" ? (
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -178,21 +181,21 @@ export default function Navbar() {
                     href="/admin"
                     className="px-4 py-2 rounded-full bg-gold text-navy text-sm font-bold hover:bg-gold-light transition-colors"
                   >
-                    لوحة التحكم
+                    {t(lang, "nav.admin")}
                   </Link>
                 ) : (
                   <Link
                     href="/dashboard"
                     className="px-4 py-2 rounded-full bg-navy text-white text-sm font-bold hover:bg-navy-light transition-colors"
                   >
-                    حسابي
+                    {t(lang, "nav.dashboard")}
                   </Link>
                 )}
                 <button
                   onClick={() => signOut()}
                   className="px-4 py-2 rounded-full border border-navy dark:border-white/30 text-navy dark:text-white text-sm font-medium hover:bg-navy/10 dark:hover:bg-white/10 transition-colors"
                 >
-                  خروج
+                  {t(lang, "nav.logout")}
                 </button>
               </div>
             ) : (
@@ -201,13 +204,13 @@ export default function Navbar() {
                   href="/auth/login"
                   className="px-4 py-2 rounded-full border border-navy dark:border-white/30 text-navy dark:text-white text-sm font-medium hover:bg-navy/10 dark:hover:bg-white/10 transition-colors"
                 >
-                  دخول
+                  {t(lang, "nav.login")}
                 </Link>
                 <Link
                   href="/auth/register"
                   className="px-4 py-2 rounded-full bg-gold text-navy text-sm font-bold hover:bg-gold-light transition-colors"
                 >
-                  تسجيل
+                  {t(lang, "nav.register")}
                 </Link>
               </div>
             )}
@@ -249,7 +252,6 @@ export default function Navbar() {
                 </Link>
               ))}
               <div className="flex gap-2 pt-2">
-                {/* Mobile Currency Selector */}
                 <div className="relative flex-1" ref={currencyMobileRef}>
                   <button
                     onClick={() => setCurrencyOpen(!currencyOpen)}
@@ -302,22 +304,22 @@ export default function Navbar() {
                       onClick={() => setMobileOpen(false)}
                       className="flex-1 text-center px-4 py-3 rounded-full bg-gold text-navy text-sm font-bold"
                     >
-                      {session.role === "admin" ? "لوحة التحكم" : "حسابي"}
+                      {session.role === "admin" ? t(lang, "nav.admin") : t(lang, "nav.dashboard")}
                     </Link>
                     <button
                       onClick={() => { signOut(); setMobileOpen(false); }}
                       className="flex-1 px-4 py-3 rounded-full border border-navy dark:border-white/30 text-navy dark:text-white text-sm font-medium"
                     >
-                      خروج
+                      {t(lang, "nav.logout")}
                     </button>
                   </>
                 ) : (
                   <>
                     <Link href="/auth/login" onClick={() => setMobileOpen(false)} className="flex-1 text-center px-4 py-3 rounded-full border border-navy dark:border-white/30 text-navy dark:text-white text-sm font-medium">
-                      دخول
+                      {t(lang, "nav.login")}
                     </Link>
                     <Link href="/auth/register" onClick={() => setMobileOpen(false)} className="flex-1 text-center px-4 py-3 rounded-full bg-gold text-navy text-sm font-bold">
-                      تسجيل
+                      {t(lang, "nav.register")}
                     </Link>
                   </>
                 )}

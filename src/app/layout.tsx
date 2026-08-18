@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AuthProvider } from "@/components/AuthProvider";
+import { LanguageProvider } from "@/hooks/useLanguage";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
@@ -24,11 +25,13 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen flex flex-col">
         <ThemeProvider>
-          <AuthProvider>
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </AuthProvider>
+          <LanguageProvider>
+            <AuthProvider>
+              <Navbar />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </AuthProvider>
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>
