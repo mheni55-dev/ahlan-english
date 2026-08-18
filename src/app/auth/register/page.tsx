@@ -68,7 +68,7 @@ export default function RegisterPage() {
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-lg border border-border p-8">
         <div className="flex flex-col items-center mb-8">
-          <img src="/logo.png" alt="Ahlan English" className="w-36 h-36 object-contain mb-4" style={{ filter: "url(#remove-white)" }} />
+          <div className="w-48 h-48 rounded-full bg-white flex items-center justify-center shadow-lg mb-4"><img src="/logo.png" alt="Ahlan English" className="w-40 h-40 object-contain" /></div>
           <h2 className="text-3xl font-bold text-navy">أهلا إنجلش</h2>
         </div>
 
