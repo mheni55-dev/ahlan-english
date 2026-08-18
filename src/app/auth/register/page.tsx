@@ -68,7 +68,7 @@ export default function RegisterPage() {
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-lg border border-border p-8">
         <div className="flex flex-col items-center mb-8">
-          <img src="/logo.png" alt="Ahlan English" className="w-48 h-48 object-contain mb-4" />
+          <img src="/logo.png" alt="Ahlan English" className="w-64 h-64 object-contain mb-4" />
           <h2 className="text-3xl font-bold text-navy">أهلا إنجلش</h2>
         </div>
 
