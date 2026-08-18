@@ -78,7 +78,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 shrink-0">
-            <img src="/logo.png" alt="Ahlan English" className="w-20 h-20 object-contain mix-blend-multiply dark:mix-blend-screen" />
+            <img src="/logo.png" alt="Ahlan English" className="w-20 h-20 object-contain" style={{ filter: "url(#remove-white)" }} />
             <span className="text-xs font-bold text-navy dark:text-white leading-tight">أهلا إنجلش</span>
           </Link>
 
