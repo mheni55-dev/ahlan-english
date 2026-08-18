@@ -36,7 +36,7 @@ export default function Footer() {
           <AnimateOnScroll animation="fadeUp" delay={0}>
             <div className="md:col-span-1">
               <div className="flex flex-col items-center md:items-start gap-3 mb-6">
-                <img src="/logo.png" alt="Ahlan English" className="w-32 h-32 object-contain" />
+                <img src="/logo.png" alt="Ahlan English" className="w-32 h-32 object-contain dark:invert" />
                 <span className="text-xl font-bold">أهلا إنجلش</span>
               </div>
               <p className="text-white/70 text-sm leading-relaxed text-center md:text-right">

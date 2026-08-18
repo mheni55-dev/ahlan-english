@@ -78,7 +78,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 shrink-0">
-            <img src="/logo.png" alt="Ahlan English" className="w-32 h-32 object-contain" />
+            <img src="/logo.png" alt="Ahlan English" className="w-32 h-32 object-contain dark:invert" />
             <span className="text-xs font-bold text-navy dark:text-white leading-tight">أهلا إنجلش</span>
           </Link>
 
