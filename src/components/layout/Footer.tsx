@@ -34,7 +34,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="md:col-span-1">
             <div className="flex flex-col items-center md:items-start gap-3 mb-6">
-              <img src="/logo.png" alt="Ahlan English" className="w-20 h-20 object-contain" />
+              <img src="/logo.png" alt="Ahlan English" className="w-20 h-20 object-contain mix-blend-multiply dark:mix-blend-screen" />
               <span className="text-xl font-bold">أهلا إنجلش</span>
             </div>
             <p className="text-white/70 text-sm leading-relaxed text-center md:text-right">
