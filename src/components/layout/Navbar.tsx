@@ -75,7 +75,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo - Far Right (RTL) */}
           <Link href="/" className="flex items-center gap-2 shrink-0">
-            <img src="/logo.png" alt="أهلا إنجلش" className="w-12 h-12 rounded-full object-cover" />
+            <img src="/logo.png" alt="أهلا إنجلش" className="w-14 h-14 rounded-full object-cover" />
             <span className="text-xs font-bold text-navy dark:text-white leading-tight">أهلا إنجلش</span>
           </Link>
 

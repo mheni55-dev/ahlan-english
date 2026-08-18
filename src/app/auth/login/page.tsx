@@ -48,7 +48,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md bg-white rounded-3xl shadow-lg border border-border p-8">
         {/* Logo */}
         <div className="flex flex-col items-center mb-8">
-          <img src="/logo.png" alt="أهلا إنجلش" className="w-20 h-20 rounded-full object-cover mb-4" />
+          <img src="/logo.png" alt="أهلا إنجلش" className="w-28 h-28 rounded-full object-cover mb-4" />
           <h2 className="text-3xl font-bold text-navy">أهلا إنجلش</h2>
         </div>
 
