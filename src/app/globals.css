@@ -13,7 +13,7 @@
   --color-foreground: #0B1E3D;
   --color-muted: #6b7280;
   --color-border: #e5e7eb;
-  --font-sans: var(--font-noto-arabic), var(--font-inter), "Noto Sans Arabic", "Inter", system-ui, sans-serif;
+  --font-sans: "Noto Sans Arabic", "Inter", system-ui, sans-serif;
 }
 
 .dark {

@@ -30,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html dir="rtl" lang="ar" suppressHydrationWarning className={`${notoArabic.variable} ${inter.variable}`}>
-      <body className="min-h-screen flex flex-col font-sans">
+      <body className={`min-h-screen flex flex-col ${notoArabic.className} ${inter.className}`}>
         <ThemeProvider>
           <AuthProvider>
             <Navbar />
