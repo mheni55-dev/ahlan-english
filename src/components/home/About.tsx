@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/hooks/useLanguage";
 import { t, tArray } from "@/lib/translations";
+import AnimateOnScroll from "@/components/AnimateOnScroll";
 
 export default function About() {
   const { lang } = useLanguage();
@@ -32,28 +33,31 @@ export default function About() {
   return (
     <section className="py-20 sm:py-28 bg-white dark:bg-navy-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-gold/10 text-gold text-sm font-bold mb-4">{t(lang, "about.badge")}</span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-navy dark:text-white mb-4">
-            {t(lang, "about.title")}
-          </h2>
-          <p className="text-muted max-w-2xl mx-auto text-lg">
-            {t(lang, "about.description")}
-          </p>
-        </div>
+        <AnimateOnScroll animation="fadeUp">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-gold/10 text-gold text-sm font-bold mb-4">{t(lang, "about.badge")}</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-navy dark:text-white mb-4">
+              {t(lang, "about.title")}
+            </h2>
+            <p className="text-muted max-w-2xl mx-auto text-lg">
+              {t(lang, "about.description")}
+            </p>
+          </div>
+        </AnimateOnScroll>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, i) => (
-            <div
-              key={i}
-              className="group p-8 rounded-3xl bg-white dark:bg-navy/50 border border-border hover:border-gold/30 hover:shadow-xl hover:shadow-gold/5 transition-all duration-300 text-center"
-            >
-              <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gold/10 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-navy transition-colors">
-                {feature.icon}
+            <AnimateOnScroll key={i} animation="scaleUp" delay={i * 120}>
+              <div
+                className="group p-8 rounded-3xl bg-white dark:bg-navy/50 border border-border hover:border-gold/30 hover:shadow-xl hover:shadow-gold/5 transition-all duration-300 text-center h-full"
+              >
+                <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gold/10 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-navy transition-colors">
+                  {feature.icon}
+                </div>
+                <h3 className="text-lg font-bold text-navy dark:text-white mb-3">{feature.title}</h3>
+                <p className="text-muted text-sm leading-relaxed">{feature.description}</p>
               </div>
-              <h3 className="text-lg font-bold text-navy dark:text-white mb-3">{feature.title}</h3>
-              <p className="text-muted text-sm leading-relaxed">{feature.description}</p>
-            </div>
+            </AnimateOnScroll>
           ))}
         </div>
       </div>

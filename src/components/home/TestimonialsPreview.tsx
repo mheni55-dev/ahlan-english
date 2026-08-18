@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useLanguage } from "@/hooks/useLanguage";
 import { t } from "@/lib/translations";
+import AnimateOnScroll from "@/components/AnimateOnScroll";
 
 type Testimonial = {
   id: string;
@@ -37,48 +38,53 @@ export default function TestimonialsPreview({ testimonials }: { testimonials: Te
   return (
     <section className="py-20 sm:py-28 bg-white dark:bg-navy-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-gold/10 text-gold text-sm font-bold mb-4">{t(lang, "testimonials.badge")}</span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-navy dark:text-white mb-4">
-            {t(lang, "testimonials.title")} <span className="text-gold">{t(lang, "testimonials.titleHighlight")}</span>
-          </h2>
-          <p className="text-muted max-w-2xl mx-auto text-lg">
-            {t(lang, "testimonials.subtitle")}
-          </p>
-        </div>
+        <AnimateOnScroll animation="fadeUp">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-gold/10 text-gold text-sm font-bold mb-4">{t(lang, "testimonials.badge")}</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-navy dark:text-white mb-4">
+              {t(lang, "testimonials.title")} <span className="text-gold">{t(lang, "testimonials.titleHighlight")}</span>
+            </h2>
+            <p className="text-muted max-w-2xl mx-auto text-lg">
+              {t(lang, "testimonials.subtitle")}
+            </p>
+          </div>
+        </AnimateOnScroll>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {testimonials.map((testimonial) => (
-            <div
-              key={testimonial.id}
-              className="p-6 rounded-3xl bg-white dark:bg-navy/50 border border-border hover:shadow-lg transition-all duration-300"
-            >
-              <StarRating rating={testimonial.rating} />
-              <p className="text-sm text-muted mt-4 mb-6 leading-relaxed line-clamp-4">{testimonial.comment}</p>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-navy dark:bg-white/10 flex items-center justify-center text-white font-bold text-sm">
-                  {testimonial.user?.name?.charAt(0)}
-                </div>
-                <div>
-                  <div className="text-sm font-bold text-navy dark:text-white">{testimonial.user?.name}</div>
-                  {testimonial.course && <div className="text-xs text-muted">{testimonial.course.titleAr}</div>}
+          {testimonials.map((testimonial, i) => (
+            <AnimateOnScroll key={testimonial.id} animation="fadeUp" delay={i * 120}>
+              <div
+                className="p-6 rounded-3xl bg-white dark:bg-navy/50 border border-border hover:shadow-lg transition-all duration-300 h-full"
+              >
+                <StarRating rating={testimonial.rating} />
+                <p className="text-sm text-muted mt-4 mb-6 leading-relaxed line-clamp-4">{testimonial.comment}</p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-navy dark:bg-white/10 flex items-center justify-center text-white font-bold text-sm">
+                    {testimonial.user?.name?.charAt(0)}
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold text-navy dark:text-white">{testimonial.user?.name}</div>
+                    {testimonial.course && <div className="text-xs text-muted">{testimonial.course.titleAr}</div>}
+                  </div>
                 </div>
               </div>
-            </div>
+            </AnimateOnScroll>
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <Link
-            href="/testimonials"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full border-2 border-navy dark:border-white/30 text-navy dark:text-white font-bold hover:bg-navy hover:text-white dark:hover:bg-white dark:hover:text-navy transition-all duration-200"
-          >
-            {t(lang, "testimonials.badge")}
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </Link>
-        </div>
+        <AnimateOnScroll animation="fadeUp" delay={200}>
+          <div className="text-center mt-12">
+            <Link
+              href="/testimonials"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full border-2 border-navy dark:border-white/30 text-navy dark:text-white font-bold hover:bg-navy hover:text-white dark:hover:bg-white dark:hover:text-navy transition-all duration-200"
+            >
+              {t(lang, "testimonials.badge")}
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+          </div>
+        </AnimateOnScroll>
       </div>
     </section>
   );

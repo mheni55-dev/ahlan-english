@@ -67,3 +67,40 @@ input:-webkit-autofill:focus {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* Scroll Animations */
+.animate-hidden {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.animate-visible {
+  opacity: 1;
+}
+
+.animate-fadeUp.animate-hidden { transform: translateY(60px); }
+.animate-fadeUp.animate-visible { transform: translateY(0); transition-property: transform, opacity; }
+
+.animate-fadeDown.animate-hidden { transform: translateY(-60px); }
+.animate-fadeDown.animate-visible { transform: translateY(0); transition-property: transform, opacity; }
+
+.animate-fadeLeft.animate-hidden { transform: translateX(-80px); }
+.animate-fadeLeft.animate-visible { transform: translateX(0); transition-property: transform, opacity; }
+
+.animate-fadeRight.animate-hidden { transform: translateX(80px); }
+.animate-fadeRight.animate-visible { transform: translateX(0); transition-property: transform, opacity; }
+
+.animate-scaleUp.animate-hidden { transform: scale(0.8); }
+.animate-scaleUp.animate-visible { transform: scale(1); transition-property: transform, opacity; }
+
+.animate-rotateIn.animate-hidden { transform: rotate(-8deg) scale(0.9); }
+.animate-rotateIn.animate-visible { transform: rotate(0) scale(1); transition-property: transform, opacity; }
+
+.animate-fadeUp.animate-visible,
+.animate-fadeDown.animate-visible,
+.animate-fadeLeft.animate-visible,
+.animate-fadeRight.animate-visible,
+.animate-scaleUp.animate-visible,
+.animate-rotateIn.animate-visible {
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
