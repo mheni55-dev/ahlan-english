@@ -74,14 +74,8 @@ export default function Navbar() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo - Far Right (RTL) */}
-          <Link href="/" className="flex flex-col items-center gap-1 shrink-0">
-            <div className="w-12 h-12 rounded-full bg-navy flex items-center justify-center">
-              <svg viewBox="0 0 24 24" className="w-7 h-7 text-gold" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M12 14l9-5-9-5-9 5 9 5z" />
-                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5zM12 14v7m0-7l6.16-3.422" />
-              </svg>
-            </div>
+          <Link href="/" className="flex items-center gap-2 shrink-0">
+            <img src="/logo.png" alt="أهلا إنجلش" className="w-12 h-12 rounded-full object-cover" />
             <span className="text-xs font-bold text-navy dark:text-white leading-tight">أهلا إنجلش</span>
           </Link>
 

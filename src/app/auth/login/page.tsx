@@ -48,21 +48,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md bg-white rounded-3xl shadow-lg border border-border p-8">
         {/* Logo */}
         <div className="flex flex-col items-center mb-8">
-          <div className="w-20 h-20 bg-navy rounded-full flex items-center justify-center mb-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={1.5}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="w-10 h-10 text-gold"
-            >
-              <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-              <path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5" />
-            </svg>
-          </div>
+          <img src="/logo.png" alt="أهلا إنجلش" className="w-20 h-20 rounded-full object-cover mb-4" />
           <h2 className="text-3xl font-bold text-navy">أهلا إنجلش</h2>
         </div>
 
