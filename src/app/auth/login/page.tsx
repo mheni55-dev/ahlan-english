@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
@@ -16,13 +16,35 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [checking, setChecking] = useState(true);
 
-  useEffect(() => {
+  // Returns the landing page for the signed-in account, or null when nobody
+  // is signed in. Admins must land on /admin, students on /dashboard.
+  const resolveDestination = useCallback(async (): Promise<string | null> => {
     const supabase = createClient();
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      if (user) router.push("/");
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) return null;
+
+    const { data: profile } = await supabase
+      .from("users")
+      .select("role")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    return profile?.role === "admin" ? "/admin" : "/dashboard";
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+    resolveDestination().then((destination) => {
+      if (!active) return;
+      if (destination) router.push(destination);
       else setChecking(false);
     });
-  }, [router]);
+    return () => {
+      active = false;
+    };
+  }, [router, resolveDestination]);
 
   if (checking) return null;
 
@@ -41,9 +63,11 @@ export default function LoginPage() {
 
     if (authError) {
       setError(t(lang, "auth.loginError"));
-    } else {
-      window.location.href = "/";
+      return;
     }
+
+    const destination = await resolveDestination();
+    window.location.href = destination ?? "/";
   }
 
   return (

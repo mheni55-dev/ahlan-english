@@ -13,7 +13,11 @@ export default function Footer() {
   useEffect(() => {
     fetch("/api/admin/settings")
       .then((res) => res.json())
-      .then((data) => setSettings(data))
+      .then((data) => {
+        if (data && typeof data === "object") {
+          setSettings(data as Record<string, string | null>);
+        }
+      })
       .catch(() => {});
   }, []);
 

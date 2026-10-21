@@ -25,6 +25,7 @@ export function useUser() {
       } = await supabase.auth.getUser();
 
       if (!authUser) {
+        setUser(null);
         setLoading(false);
         return;
       }
@@ -33,9 +34,23 @@ export function useUser() {
         .from("users")
         .select("*")
         .eq("id", authUser.id)
-        .single();
+        .maybeSingle();
 
-      setUser(data);
+      if (data) {
+        setUser(data);
+      } else {
+        // The profile row is missing — fall back to the auth account so the
+        // UI stays consistent with the session.
+        const metadata = (authUser.user_metadata ?? {}) as Record<string, unknown>;
+        setUser({
+          id: authUser.id,
+          name: typeof metadata.name === "string" ? metadata.name : "",
+          email: authUser.email ?? "",
+          role: metadata.role === "admin" ? "admin" : "student",
+          phone: typeof metadata.phone === "string" ? metadata.phone : null,
+          image: null,
+        });
+      }
       setLoading(false);
     }
 

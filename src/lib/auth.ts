@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { fetchOrCreateProfile, type UserProfile } from "@/lib/supabase/profile";
 
 export async function getUser() {
   const supabase = await createClient();
@@ -8,7 +9,7 @@ export async function getUser() {
   return user;
 }
 
-export async function getUserProfile() {
+export async function getUserProfile(): Promise<UserProfile | null> {
   const supabase = await createClient();
   const {
     data: { user },
@@ -19,9 +20,13 @@ export async function getUserProfile() {
     .from("users")
     .select("*")
     .eq("id", user.id)
-    .single();
+    .maybeSingle();
 
-  return data;
+  if (data) return data as UserProfile;
+
+  // The profile row is missing (the `handle_new_user` trigger never ran for
+  // this account). Recreate it instead of locking the account out.
+  return fetchOrCreateProfile(user);
 }
 
 export async function requireAuth() {
@@ -30,7 +35,7 @@ export async function requireAuth() {
   return user;
 }
 
-export async function requireAdmin() {
+export async function requireAdmin(): Promise<UserProfile | null> {
   const profile = await getUserProfile();
   if (!profile || profile.role !== "admin") return null;
   return profile;

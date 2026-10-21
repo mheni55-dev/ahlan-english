@@ -35,13 +35,19 @@ export default function AdminProfilePage() {
     setError("");
     setSuccess("");
 
+    if (!session) {
+      setError("تعذّر تحميل بيانات الحساب");
+      setLoading(false);
+      return;
+    }
+
     try {
       const supabase = createClient();
 
       const { error: profileError } = await supabase
         .from("users")
         .update({ name: form.name, phone: form.phone || null, updated_at: new Date().toISOString() })
-        .eq("id", session!.id);
+        .eq("id", session.id);
 
       if (profileError) {
         setError("حدث خطأ أثناء تحديث المعلومات");
@@ -49,7 +55,7 @@ export default function AdminProfilePage() {
         return;
       }
 
-      if (form.email !== session!.email) {
+      if (form.email !== session.email) {
         const { error: emailError } = await supabase.auth.updateUser({ email: form.email });
         if (emailError) {
           setError("حدث خطأ أثناء تحديث البريد الإلكتروني");

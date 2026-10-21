@@ -8,11 +8,14 @@ import TestimonialsPreview from "@/components/home/TestimonialsPreview";
 export default async function HomePage() {
   const supabase = await createClient();
 
+  // Never let a data problem (missing tables, env mismatch) take the whole
+  // homepage down with a 500 — fall back to empty sections instead.
   const { data: coursesRaw } = await supabase
     .from("courses")
     .select("*")
     .eq("visible", true)
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .then((res) => res, () => ({ data: null }));
 
   const courses = (coursesRaw || []).map((c) => ({
     id: c.id,
@@ -31,7 +34,8 @@ export default async function HomePage() {
     .select("*, user:users(name, image), course:courses(title_ar)")
     .eq("approved", true)
     .order("created_at", { ascending: false })
-    .limit(4);
+    .limit(4)
+    .then((res) => res, () => ({ data: null }));
 
   const testimonials = (testimonialsRaw || []).map((t) => {
     const user = Array.isArray(t.user) ? t.user[0] : t.user;

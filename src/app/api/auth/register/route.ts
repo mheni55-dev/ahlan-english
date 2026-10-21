@@ -55,6 +55,21 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "حدث خطأ أثناء التسجيل" }, { status: 500 });
     }
 
+    // Create the profile row straight away — the `handle_new_user` trigger
+    // only covers signups that go through Supabase Auth directly.
+    if (data.user) {
+      await supabase.from("users").upsert(
+        {
+          id: data.user.id,
+          email: email.toLowerCase().trim(),
+          name: name.trim(),
+          role: "student",
+          phone: phone?.trim() || null,
+        },
+        { onConflict: "id" }
+      );
+    }
+
     return NextResponse.json(
       { message: "تم إنشاء الحساب بنجاح", userId: data.user?.id },
       { status: 201 }

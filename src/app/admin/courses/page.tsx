@@ -77,7 +77,7 @@ export default async function AdminCourses() {
                     <td className="py-3 px-4">
                       <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${levelColors[course.level] || "bg-gray-100 text-gray-700"}`}>{course.level}</span>
                     </td>
-                    <td className="py-3 px-4 font-medium">{course.price.toLocaleString("ar-DZ")} دج</td>
+                    <td className="py-3 px-4 font-medium">{course.price?.toLocaleString("ar-DZ") ?? 0} دج</td>
                     <td className="py-3 px-4 text-muted">{course.duration}</td>
                     <td className="py-3 px-4">{course._count.enrollments}</td>
                     <td className="py-3 px-4">{course.featured ? <span className="text-gold">★</span> : <span className="text-muted">—</span>}</td>

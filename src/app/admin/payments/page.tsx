@@ -6,8 +6,8 @@ interface Enrollment {
   id: string;
   paymentStatus: string;
   enrolledAt: string;
-  user: { name: string; email: string };
-  course: { titleAr: string; price: number };
+  user: { name: string; email: string } | null;
+  course: { titleAr: string; price: number } | null;
   courseId: string;
 }
 
@@ -64,7 +64,10 @@ export default function AdminPayments() {
 
   const uniqueCourses = Array.from(
     new Map(enrollments.map((e) => [e.courseId, e.course])).entries()
-  ).map(([id, course]) => ({ id, ...course }));
+  ).map(([id, course]) => ({
+    id,
+    titleAr: course?.titleAr || "دورة محذوفة",
+  }));
 
   function renderSection(title: string, items: Enrollment[], actions?: boolean) {
     return (
@@ -80,11 +83,11 @@ export default function AdminPayments() {
               <div key={enrollment.id} className="flex items-center justify-between px-5 py-3 hover:bg-navy/5 transition-colors">
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-full bg-navy text-white flex items-center justify-center font-bold text-xs">
-                    {enrollment.user.name.charAt(0)}
+                    {enrollment.user?.name?.charAt(0) || "؟"}
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-navy">{enrollment.user.name}</p>
-                    <p className="text-xs text-muted">{enrollment.course.titleAr} — {enrollment.course.price.toLocaleString("ar-DZ")} دج</p>
+                    <p className="text-sm font-medium text-navy">{enrollment.user?.name || "غير معروف"}</p>
+                    <p className="text-xs text-muted">{enrollment.course?.titleAr || "—"} — {enrollment.course?.price?.toLocaleString("ar-DZ") ?? 0} دج</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">

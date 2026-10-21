@@ -43,7 +43,7 @@ export default async function AdminStudents() {
                 <summary className="flex items-center justify-between px-5 py-4 cursor-pointer hover:bg-navy/5 transition-colors list-none">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-navy text-white flex items-center justify-center font-bold text-sm">
-                      {student.name.charAt(0)}
+                      {student.name?.charAt(0) || "؟"}
                     </div>
                     <div>
                       <p className="font-medium text-navy">{student.name}</p>
@@ -72,9 +72,9 @@ export default async function AdminStudents() {
                           <div key={enrollment.id} className="flex items-center justify-between bg-white rounded-2xl px-4 py-2.5 border border-border">
                             <div>
                               <p className="text-sm font-medium text-navy">{enrollment.course?.title_ar}</p>
-                              <p className="text-xs text-muted">
-                                {new Date(enrollment.enrolled_at).toLocaleDateString("ar-DZ")} — {enrollment.course?.price.toLocaleString("ar-DZ")} دج
-                              </p>
+                                <p className="text-xs text-muted">
+                                  {new Date(enrollment.enrolled_at).toLocaleDateString("ar-DZ")} — {enrollment.course?.price?.toLocaleString("ar-DZ") ?? 0} دج
+                                </p>
                             </div>
                             <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${status.className}`}>{status.label}</span>
                           </div>
