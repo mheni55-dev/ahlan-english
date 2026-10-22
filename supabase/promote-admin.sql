@@ -16,7 +16,7 @@
 -- 👇 غيّر البريد الإلكتروني أدناه إلى بريد حساب المدير
 DO $$
 DECLARE
-  target_email TEXT := 'admin@example.com';
+  target_email TEXT := 'admin@ahlan-english.com';
   target_id   UUID;
 BEGIN
   SELECT id INTO target_id
