@@ -88,9 +88,10 @@ export default function LoginPage() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} autoComplete="off" className="space-y-4">
           <input
             type="email"
+            autoComplete="off"
             placeholder={t(lang, "auth.email")}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -99,6 +100,7 @@ export default function LoginPage() {
           />
           <input
             type="password"
+            autoComplete="new-password"
             placeholder={t(lang, "auth.password")}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
